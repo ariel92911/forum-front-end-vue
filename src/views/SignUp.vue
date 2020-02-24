@@ -2,7 +2,7 @@
 
 <template>
   <div class="container py-5">
-    <form class="w-100" @submit.prevent.stop="handleSubmit">
+    <form class="w-100" @submit.stop.prevent="handleSubmit">
       <div class="text-center mb-4">
         <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
       </div>
@@ -26,6 +26,7 @@
         <input
           id="email"
           v-model="email"
+          name="email"
           type="email"
           class="form-control"
           placeholder="email"
@@ -67,14 +68,13 @@
         </p>
       </div>
 
-      <p class="mt-5 mb-3 text-muted text-center">&copy; 2017-2018</p>
+      <p class="mt-5 mb-3 text-muted text-center">© 2017-2018</p>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SignUp",
   data() {
     return {
       name: "",
