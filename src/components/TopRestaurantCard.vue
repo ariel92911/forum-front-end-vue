@@ -1,4 +1,4 @@
-// ./src/component/RestaurantsTopCard.vue
+// ./src/component/TopRestaurantCard.vue
 <template>
   <div class="card mb-3" style="max-width: 540px;margin: auto;">
     <div class="row no-gutters">

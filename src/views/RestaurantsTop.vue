@@ -5,7 +5,8 @@
     <h1 class="mt-5">人氣餐廳</h1>
 
     <hr />
-    <RestaurantsTopCard
+    <!-- 人氣餐廳卡片 RestaurantsTopCard-->
+    <TopRestaurantCard
       v-for="restaurant in restaurants"
       :key="restaurant.id"
       :initial-restaurant="restaurant"
@@ -15,7 +16,7 @@
 
 <script>
 import NavTabs from "./../components/NavTabs";
-import RestaurantsTopCard from "./../components/RestaurantsTopCard";
+import TopRestaurantCard from "./../components/TopRestaurantCard";
 
 const dummyData = {
   restaurants: [
@@ -229,7 +230,7 @@ const dummyData = {
 export default {
   components: {
     NavTabs,
-    RestaurantsTopCard
+    TopRestaurantCard
   },
   data() {
     return {
