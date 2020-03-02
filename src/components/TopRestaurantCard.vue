@@ -12,7 +12,10 @@
           <h5 class="card-title">{{ restaurant.name }}</h5>
           <span class="badge badge-secondary">收藏數：0</span>
           <p class="card-text">{{ restaurant.description }}</p>
-          <a href="#" class="btn btn-primary mr-2">Show</a>
+          <router-link
+            :to="{ name: 'restaurant', params: { id: restaurant.id }}"
+            class="btn btn-primary mr-2"
+          >Show</router-link>
 
           <button
             v-if="restaurant.isFavorited"
