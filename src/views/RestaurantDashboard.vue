@@ -12,7 +12,7 @@
         <li>瀏覽次數：15475</li>
         <li>收藏數：{{restaurantFavoritedUsers.length}}</li>
       </ul>
-      <a href="#">回上一頁</a>
+      <a href="#" @click="$router.back()">回上一頁</a>
     </div>
   </div>
 </template>
