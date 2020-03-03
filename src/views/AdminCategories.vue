@@ -30,7 +30,11 @@
           </td>
           <td class="d-flex justify-content-between">
             <button type="button" class="btn btn-link mr-2">Edit</button>
-            <button type="button" class="btn btn-link mr-2">Delete</button>
+            <button
+              type="button"
+              class="btn btn-link mr-2"
+              @click.stop.prevent="deleteCategory(category.id)"
+            >Delete</button>
           </td>
         </tr>
       </tbody>
@@ -102,6 +106,14 @@ export default {
       });
 
       this.newCategoryName = ""; // 清空原本欄位中的內容
+    },
+    deleteCategory(categoryId) {
+      // TODO: 透過 API 告知伺服器欲刪除的餐廳類別
+
+      // 將該餐廳類別從陣列中移除
+      this.categories = this.categories.filter(
+        category => category.id !== categoryId
+      );
     }
   }
 };
