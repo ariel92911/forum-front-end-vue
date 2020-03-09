@@ -51,31 +51,28 @@ export default {
     };
   },
   created() {
-    // STEP 3：在 created 的時候呼叫 fetchRestaurants 方法
-    // 這裡會向伺服器請求第一頁且不分餐廳類別的資料
-    this.fetchRestaurants({
-      page: 1,
-      categoryId: ""
-    });
+    const { page, categoryId } = this.$route.query;
+    this.fetchRestaurants({ page, categoryId });
+  },
+  beforeRouteUpdate(to, from, next) {
+    const { page, categoryId } = to.query;
+    this.fetchRestaurants({ page, categoryId });
+    next();
   },
   methods: {
-    // STEP 2：將 fetchRestaurants 改成 async...await 的語法
-    // 並且可以帶入參數 page 與 categoryId
-    // 呼叫 API 後取得 response
-    async fetchRestaurants({ page, categoryId }) {
+    // STEP 1：直接在 fetchRestaurants 的地方帶入預設值
+    async fetchRestaurants({ page = 1, categoryId = "" }) {
       try {
-        const response = await restaurantsAPI.getRestaurants({
+        // STEP 2：直接把 response 內需要的屬性透過解構賦值拿出來
+        const { data, statusText } = await restaurantsAPI.getRestaurants({
           page,
           categoryId
         });
-        console.log("response", response);
-        // 將 response 中的 data 和 statusText 取出
-        const { data, statusText } = response;
-        // 如果 statusText 不是 OK 的話則進入錯誤處理
+
         if (statusText !== "OK") {
           throw new Error(statusText);
         }
-        // STEP 4：將從伺服器取得的 data 帶入 Vue 內
+
         this.categories = data.categories;
         this.categoryId = data.categoryId;
         this.currentPage = data.page;
