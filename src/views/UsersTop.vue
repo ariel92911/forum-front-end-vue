@@ -14,35 +14,8 @@
 <script>
 import NavTabs from "./../components/NavTabs";
 import UserCard from "./../components/UserCard";
-
-const dummyData = {
-  users: [
-    {
-      id: 1,
-      name: "Root",
-      email: "root@example.com",
-      image: "https://i.pravatar.cc/300?img=1",
-      isAdmin: true,
-      follower: 3
-    },
-    {
-      id: 2,
-      name: "User1",
-      email: "user1@example.com",
-      image: "https://i.pravatar.cc/300?img=2",
-      isAdmin: false,
-      follower: 0
-    },
-    {
-      id: 3,
-      name: "User2",
-      email: "user2@example.com",
-      image: "https://i.pravatar.cc/300?img=3",
-      isAdmin: false,
-      follower: 2
-    }
-  ]
-};
+import usersAPI from "./../apis/users";
+import { Toast } from "./../utils/helpers";
 
 export default {
   components: {
@@ -55,11 +28,24 @@ export default {
     };
   },
   created() {
-    this.fetchUsers();
+    this.fetchTopUsers();
   },
   methods: {
-    fetchUsers() {
-      this.users = dummyData.users;
+    async fetchTopUsers() {
+      try {
+        const { data, statusText } = await usersAPI.getTopUsers();
+
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+
+        this.users = data.users;
+      } catch (error) {
+        Toast.fire({
+          type: "error",
+          title: "無法取得美食達人，請稍後再試"
+        });
+      }
     }
   }
 };
