@@ -24,29 +24,33 @@ export default new Vuex.Store({
       }
       // 將使用者的登入狀態改為 true
       state.isAuthenticated = true
+    },
+    revokeAuthentication(state) {
+      state.currentUser = {}
+      state.isAuthenticated = false
+      localStorage.removeItem('token')
     }
   },
   actions: {
-    // 在 actions 中可以透過參數的方式取得 commit 的方法
     async fetchCurrentUser({ commit }) {
       try {
-        const { data, statusText } = await usersAPI.getCurrentUser()
+        const { data: { profile }, statusText } = await usersAPI.get()
 
         if (statusText !== 'OK') {
           throw new Error(statusText)
         }
 
         commit('setCurrentUser', {
-          id: data.id,
-          name: data.name,
-          email: data.email,
-          image: data.image,
-          isAdmin: data.isAdmin
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          image: profile.image,
+          isAdmin: profile.isAdmin
         })
-        return true
+        return true  // add this line
       } catch (error) {
-        commit('revokeAuthentication')
-        return false
+        console.error('can not fetch user information')
+        return false  // add this line
       }
     }
   },
