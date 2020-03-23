@@ -40,3 +40,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.form-group {
+  margin: 21px 0 8px;
+}
+</style>
